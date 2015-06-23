@@ -20,6 +20,7 @@ $blue: #477dca;
 $dark-gray: #333;
 $medium-gray: #999;
 $light-gray: #ddd;
+$orange: #F38630;
 
 // Font Colors
 $base-background-color: #fff;
@@ -33,3 +34,8 @@ $base-border: 1px solid $base-border-color;
 // Forms
 $form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+
+// Media Queries
+$desktop-width: 1200px;
+$tablet-width: 768px;
+$phane-width: 320px;
