@@ -30,6 +30,8 @@ gem 'faker'
 gem 'bourbon'
 # Neat - lightweight framework
 gem 'neat', '~> 1.7.2'
+# Refills - components built with Bourbon
+gem 'refills'
 
 
 group :development, :test do
