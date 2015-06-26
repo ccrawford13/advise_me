@@ -39,11 +39,12 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   # JS Testing W/Capybara
-  gem 'capybara-webkit'
+  # gem 'capybara-webkit'
   # Shoulda Matchers
   gem 'shoulda-matchers', require: false
   # Test Factories
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Access an IRB console on exception pages or by using <%= console %> in views

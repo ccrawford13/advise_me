@@ -6,7 +6,7 @@ FactoryGirl.define do
     last_name              { Faker::Name.last_name }
     position               'Advisor'
     organization           { Faker::Company.name }
-    email                  { Faker::Internet.email }
+    email                  { Faker::Internet.email("#{last_name}") }
     password               { Faker::Internet.password }
 
   end
