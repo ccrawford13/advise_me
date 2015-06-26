@@ -8,4 +8,7 @@
     = csrf_meta_tags
   %body
     = render partial: 'refills/centered_navigation'
-    = yield
+    .wrapper-for-content-outside-of-footer
+      = render partial: 'layouts/flash_messages'
+      = yield
+  = render partial: 'refills/footer_2'
