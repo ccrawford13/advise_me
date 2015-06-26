@@ -12,14 +12,10 @@
 !/log/.keep
 /tmp
 
-log/.keep
-
 config/secrets.yml
-
-lib/tasks/.keep
 
 lib/assets/.keep
 
-vendor/assets/javascripts/.keep
+lib/tasks/.keep
 
-vendor/assets/stylesheets/.keep
+log/.keep

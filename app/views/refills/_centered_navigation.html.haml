@@ -1,0 +1,21 @@
+%body
+  %header.centered-navigation{:role => "banner"}
+    .centered-navigation-wrapper
+      %a.mobile-logo{:href => "javascript:void(0)"}
+        %img{:alt => "Logo image", :src => "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png"}/
+      %a#js-centered-navigation-mobile-menu.centered-navigation-mobile-menu{:href => "javascript:void(0)"} MENU
+      %nav{:role => "navigation"}
+        %ul#js-centered-navigation-menu.centered-navigation-menu.show
+          %li.nav-link
+            = link_to "Products", "#"
+          %li.nav-link
+            = link_to "About Us", welcome_about_path
+          %li.nav-link.logo
+            %a.logo{:href => "javascript:void(0)"}
+              %img{:alt => "Logo image", :src => "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1_dark.png"}/
+          %li.nav-link
+            = link_to "Contact", welcome_contact_path
+          %li.nav-link
+            = link_to "Sign up", new_user_registration_path, id: "sign_up"
+          %li.nav-link
+            = link_to "Sign in", new_user_session_path, id: "sign_in"
