@@ -19,3 +19,7 @@ lib/assets/.keep
 lib/tasks/.keep
 
 log/.keep
+
+client_secret.json
+
+config/appplication.yml
