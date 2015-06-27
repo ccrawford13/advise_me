@@ -39,7 +39,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   # JS Testing W/Capybara
-  # gem 'capybara-webkit'
+  gem 'capybara-webkit'
   # Shoulda Matchers
   gem 'shoulda-matchers', require: false
   # Test Factories

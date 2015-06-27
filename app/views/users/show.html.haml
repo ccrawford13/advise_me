@@ -1,2 +1,27 @@
-%h1 Users#show
-%p Find me in app/views/users/show.html.haml
+.user__container--outer
+  .user__header
+    %h1= "#{@user.full_name}"
+.student__container--outer
+  %ul.accordion-tabs
+    %li.tab-header-and-content
+      = link_to "Students | #{@user.students.count}", "javascript:void(0)", class: "is-active tab-link"
+      .tab-content
+        .button__container
+          %button.modal-trigger#add_student
+            %label{:for => "modal-1"} Add Student
+          .modal
+            %input#modal-1.modal-state{:type => "checkbox"}/
+            .modal-window
+              .modal-inner
+                = render partial: 'students/form', locals: { user: @user, student: @new_student  }
+        .student__cards
+          .cards
+            = render partial: 'students/students', collection: @students, as: :student
+    %li.tab-header-and-content
+      = link_to "Tasks", "javascript:void(0)", class: "tab-link"
+      .tab-content
+        .student__cards
+    %li.tab-header-and-content
+      = link_to "Appointments", "javascript:void(0)", class: "tab-link"
+      .tab-content
+        .student__cards

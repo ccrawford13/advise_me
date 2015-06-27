@@ -1,5 +1,4 @@
 - flash.each do |name, msg|
   - if msg.is_a?(String)
-    %div{:class => "alert-box round #{name == :notice ? "alert" : "success"}", "data-alert" => ""}
+    %div{:class => "flash-#{name == :notice ? "alert" : "success"} flash-message", "data-alert" => ""}
       = content_tag :div, msg
-      %a.close{:href => ""} x

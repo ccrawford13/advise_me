@@ -1,0 +1,10 @@
+<% if @student.valid? %>
+  // add student to list
+  $('.cards').prepend("<%= escape_javascript(render 'students/students', student: @student) %>");
+  // close modal
+  $(".modal-state:checked").prop("checked", false).change();
+  $('.user__container--outer').prepend("<div class='flash-success flash-message'><%= flash[:success] %> </div>");
+<% else %>
+  $('.modal-inner').prepend("<div class='flash-error flash-message'> <%= flash[:error] %> </div>");
+  $('.flash-message').fadeOut(5000);
+<% end %>
