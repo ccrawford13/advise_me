@@ -1,0 +1,14 @@
+= form_for [user, student], remote: true do |f|
+  .form__container
+    .field
+      = f.text_field :first_name, id: "first_name", placeholder: "First name"
+    .field
+      = f.text_field :last_name, id: "last_name", placeholder: "Last name"
+    .field
+      = f.email_field :email, id: "email", placeholder: "Email"
+    .field
+      = f.text_field :year, id: "year", placeholder: "Year/Status"
+    .field
+      = f.text_field :major, id: "major", placeholder: "Major"
+    .submit
+      = f.submit "Save student", id: "save_student"

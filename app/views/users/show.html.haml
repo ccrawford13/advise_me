@@ -1,2 +1,19 @@
-%h1 Users#show
-%p Find me in app/views/users/show.html.haml
+.user__container--outer
+  .user__header
+    %h1= "#{@user.full_name}"
+.student__container--outer
+  .student__header
+    %h3= "Students - (#{@user.students.count})"
+    .student__new
+      %button#add_student
+        %label{:for => "modal-1"}
+          .modal-trigger Add Student
+      .student__modal
+      .modal
+        %input#modal-1.modal-state{:type => "checkbox"}/
+        .modal-window
+          .modal-inner
+            = render partial: 'students/form', locals: { user: @user, student: @new_student  }
+  .student__cards
+    .cards
+      = render partial: 'students/students', collection: @students, as: :student

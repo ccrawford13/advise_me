@@ -1,0 +1,38 @@
+.user__container--outer {
+  @include outer-container;
+  border: 1pt solid red;
+
+  .user__header {
+    padding-top: 2em;
+    text-align: center;
+
+    h1 {
+      font-size: 2.5em;
+    }
+  }
+}
+.student__container--outer {
+  @include outer-container;
+  border: 1pt solid blue;
+
+  .student__header {
+    padding-top: 2em;
+    text-align: center;
+
+    h3 {
+      font-size: 1.25em;
+    }
+    .student__new {
+      a {
+        color: #fff;
+      }
+      .student__modal {
+        display: none;
+      }
+    }
+  }
+
+  .student__cards {
+    padding-top: .25em;
+  }
+}
