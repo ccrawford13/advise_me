@@ -32,6 +32,8 @@ gem 'bourbon'
 gem 'neat', '~> 1.7.2'
 # Refills - components built with Bourbon
 gem 'refills'
+# Omniauth 
+gem "omniauth-google-oauth2"
 
 
 group :development, :test do
