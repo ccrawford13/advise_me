@@ -12,3 +12,10 @@
       = render partial: 'layouts/flash_messages'
       = yield
   = render partial: 'refills/footer_2'
+
+:javascript
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('.flash-message').fadeOut();
+    }, 3000);
+  });
