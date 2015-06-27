@@ -25,7 +25,7 @@
   $card-image-hover-background: lighten($card-image-background, 5%);
   $card-margin: 1em;
 
-  @include flex-basis(15em);
+  @include flex-basis(14em);
   @include flex-grow(1);
   @include transition (all 0.2s ease-in-out);
   background-color: $card-background;

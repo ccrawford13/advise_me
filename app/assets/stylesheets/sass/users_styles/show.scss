@@ -1,6 +1,5 @@
 .user__container--outer {
   @include outer-container;
-  border: 1pt solid red;
 
   .user__header {
     padding-top: 2em;
@@ -11,28 +10,33 @@
     }
   }
 }
+
 .student__container--outer {
   @include outer-container;
-  border: 1pt solid blue;
 
-  .student__header {
-    padding-top: 2em;
-    text-align: center;
+    .button__container {
+      text-align: center;
+      padding: 0 1.5em;
 
-    h3 {
-      font-size: 1.25em;
-    }
-    .student__new {
-      a {
-        color: #fff;
+      button {
+        @include media($desktop-width) {
+          width: 30%;
+        }
+        @include media($phone-width) {
+          width: 70%;
+        }
+        @include media($tablet-width) {
+          width: 30%;
+        }
       }
-      .student__modal {
-        display: none;
+
+      label {
+        cursor: pointer;
       }
+
     }
-  }
 
   .student__cards {
-    padding-top: .25em;
+    padding-top: 1em;
   }
 }
