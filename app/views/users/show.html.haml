@@ -4,7 +4,7 @@
 .student__container--outer
   %ul.accordion-tabs
     %li.tab-header-and-content
-      = link_to "Students | #{@user.students.count}", "javascript:void(0)", class: "is-active tab-link"
+      = link_to "Students | #{@user.student_count}", "javascript:void(0)", class: "is-active tab-link"
       .tab-content
         .button__container
           %button.modal-trigger#add_student
