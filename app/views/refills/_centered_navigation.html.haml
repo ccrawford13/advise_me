@@ -15,6 +15,8 @@
               %img{:alt => "Logo image", :src => "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1_dark.png"}
           -if current_user
             %li.nav-link
+              = link_to "Dashboard", user_path(current_user), id: "user_dashboard"
+            %li.nav-link
               = link_to "Sign out", destroy_user_session_path, id: "sign_out", method: :delete
           - else
             %li.nav-link

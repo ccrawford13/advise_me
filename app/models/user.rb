@@ -34,4 +34,8 @@ class User < ActiveRecord::Base
   def full_name
     [first_name, last_name].join(" ")
   end
+
+  def student_count
+    students.count
+  end
 end
