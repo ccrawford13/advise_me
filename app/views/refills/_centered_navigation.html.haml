@@ -12,10 +12,14 @@
             = link_to "About Us", welcome_about_path
           %li.nav-link.logo
             %a.logo{:href => "javascript:void(0)"}
-              %img{:alt => "Logo image", :src => "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1_dark.png"}/
-          %li.nav-link
-            = link_to "Contact", welcome_contact_path
-          %li.nav-link
-            = link_to "Sign up", new_user_registration_path, id: "sign_up"
-          %li.nav-link
-            = link_to "Sign in", new_user_session_path, id: "sign_in"
+              %img{:alt => "Logo image", :src => "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1_dark.png"}
+          -if current_user
+            %li.nav-link
+              = link_to "Sign out", destroy_user_session_path, id: "sign_out", method: :delete
+          - else
+            %li.nav-link
+              = link_to "Sign up", new_user_registration_path, id: "sign_up"
+            %li.nav-link
+              = link_to "Sign in", new_user_session_path, id: "sign_in"
+            %li.nav-link
+              = link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2), id: "google_sign_in"
