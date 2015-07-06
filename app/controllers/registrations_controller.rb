@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+  skip_before_action :authenticate_user!
 
   private
 
@@ -14,7 +15,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_inactive_sign_up_path_for(resource)
-    new_user_session_path
+    if @current_user
+      user_path(@current_user)
+    else
+      new_user_session_path
+    end
   end
 
 end
