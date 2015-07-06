@@ -22,4 +22,5 @@ log/.keep
 
 client_secret.json
 
-config/appplication.yml
+# Ignore application configuration
+/config/application.yml
