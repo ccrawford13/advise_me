@@ -34,9 +34,11 @@ gem 'neat', '~> 1.7.2'
 # Refills - components built with Bourbon
 gem 'refills'
 # Omniauth
-gem "omniauth-google-oauth2"
+gem 'omniauth-google-oauth2'
 # Figaro for ENV variables
 gem 'figaro'
+# Google API client
+gem 'google-api-client', require: 'google/api_client'
 
 
 group :development, :test do
