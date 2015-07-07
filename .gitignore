@@ -19,3 +19,8 @@ lib/assets/.keep
 lib/tasks/.keep
 
 log/.keep
+
+client_secret.json
+
+# Ignore application configuration
+/config/application.yml

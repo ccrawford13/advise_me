@@ -14,6 +14,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -32,6 +33,12 @@ gem 'bourbon'
 gem 'neat', '~> 1.7.2'
 # Refills - components built with Bourbon
 gem 'refills'
+# Omniauth
+gem 'omniauth-google-oauth2'
+# Figaro for ENV variables
+gem 'figaro'
+# Google API client
+gem 'google-api-client', require: 'google/api_client'
 
 
 group :development, :test do
