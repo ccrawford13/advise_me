@@ -1,0 +1,10 @@
+/ Output is an array of hashes
+/ utilize decorator or function in model to clean up output
+.cards
+- @events.each do |event|
+  .card
+    .card-header
+      %h3= event.summary
+    .card-copy
+      %p= event.start_time
+      %p= event.end_time

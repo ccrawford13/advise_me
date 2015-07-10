@@ -24,4 +24,6 @@
     %li.tab-header-and-content
       = link_to "Appointments", "javascript:void(0)", class: "tab-link"
       .tab-content
+        .appointments__list
+          = render partial: 'users/events'
         .student__cards

@@ -22,12 +22,12 @@ class User < ActiveRecord::Base
                            organization: "Organization",
                            email: data["email"],
                            password: Devise.friendly_token[0,20],
-                           confirmed_at: Time.new(2014)
+                           confirmed_at: Time.now,
+                           uid: access_token["uid"],
+                           auth_token: access_token["credentials"]["token"],
+                           provider: access_token["provider"]
         )
     end
-    # Set token for user
-    user.uid = access_token["uid"]
-    user.provider = access_token["provider"]
     user
   end
 
