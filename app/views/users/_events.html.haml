@@ -3,7 +3,7 @@
 - @upcoming_events.each do |event|
   .card
     .card-header
-      %h3= event.summary
+      = link_to "#{event.summary}", "#{event.event_link}", target: "_blank"
     .card-copy
       %p= "Starts: #{event.formatted_start_time}"
       %p= "Ends: #{event.formatted_end_time}"
@@ -11,7 +11,7 @@
 - @past_events.each do |event|
   .card
     .card-header
-      %h3= event.summary
+      = link_to "#{event.summary}", "#{event.event_link}", target: "_blank"
     .card-copy
       %p= "Starts: #{event.formatted_start_time}"
       %p= "Ends: #{event.formatted_end_time}"

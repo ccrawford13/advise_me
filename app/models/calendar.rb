@@ -85,5 +85,9 @@ class Calendar
     def summary
       event_hash['summary']
     end
+
+    def event_link
+      event_hash['htmlLink']
+    end
   end
 end
