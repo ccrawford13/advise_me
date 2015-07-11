@@ -18,10 +18,10 @@ class TokenRefresh
                                   grant_type: 'refresh_token'
       refresh_hash = JSON.parse(response.body)
       new_token = refresh_hash['access_token']
-      # divide new_expiration by 60 to get time till
-      # expiration in minutes. Each new token should
-      # be good for 60 min
-      new_expiration = refresh_hash['expires_in'] / 60
+      # expires_in returns a numeric value eql to 60 min
+      # we will call the create_expiration_time method
+      # to add the 60 min to the current time
+      new_expiration = create_expiration_time(refresh_hash['expires_in'].to_i)
       # used explicit return statement to clarify
       # what values are being returned & why
       return new_token, new_expiration
@@ -35,9 +35,17 @@ class TokenRefresh
   end
 
   def expired_token?
-    # treat token as expired if there is 1 min or less remaining
-    # before expiration. this will be checked before every
-    # call to the calendar API
-    return true if @token_expiration.to_i <= 1
+    # token is expired if the expiration time saved
+    # is before or eql to the current time
+    # this will be checked before ever call to the calendar API
+    return true if @token_expiration.to_i <= Time.now.to_i
+  end
+
+  def create_expiration_time(time)
+    # subtract 5 minutes from expiration time as buffer so
+    # user will not run into invalid token errors
+    # ideally the validation of tokens and API calls could be automated
+    # to refresh every minute or so
+    (Time.now.to_i + (time - 300))
   end
 end

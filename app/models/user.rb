@@ -13,10 +13,6 @@ class User < ActiveRecord::Base
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(:email => data["email"]).first
-    # grab the expires_at value from access_token & convert it to time
-    # remaining in minutes -> this way all methods that deal with
-    # token_expiration will be looking for a time in minutes instead of a date
-    expiration_in_min = token_expiration_in_min(access_token["credentials"]["expires_at"])
     unless user
         user = User.create(first_name: data["first_name"],
                            last_name: data["last_name"],
@@ -28,19 +24,13 @@ class User < ActiveRecord::Base
                            uid: access_token["uid"],
                            auth_token: access_token["credentials"]["token"],
                            refresh_token: access_token["credentials"]["refresh_token"],
-                           token_expiration: expiration_in_min,
+                           token_expiration: access_token["credentials"]["expires_at"].to_i,
                            provider: access_token["provider"]
 
         )
     end
     user.save!
     user
-  end
-
-  # Convert expires_at date from omniauth to
-  # number of minutes remaining before token expires
-  def self.token_expiration_in_min(expiration_date)
-    (expiration_date.to_i - Time.now.to_i) / 60
   end
 
   def check_auth_token
