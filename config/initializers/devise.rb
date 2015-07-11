@@ -244,6 +244,7 @@ Devise.setup do |config|
     {
        provider_ignores_state: true,
        access_type: 'offline',
+       approval_prompt: 'force',
        scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar'
     }
   # ==> Warden configuration
