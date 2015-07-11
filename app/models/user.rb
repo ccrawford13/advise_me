@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
     # token_expiration will be looking for a time in minutes instead of a date
     expiration_in_min = token_expiration_in_min(access_token["credentials"]["expires_at"])
     unless user
-        user = User.create(first_name: data["name"],
-                           last_name: data["name"],
+        user = User.create(first_name: data["first_name"],
+                           last_name: data["last_name"],
                            position: "Advisor",
                            organization: "Organization",
                            email: data["email"],
@@ -57,8 +57,9 @@ class User < ActiveRecord::Base
   def update_token(new_token, new_expiration)
     # if token & expiration passed in differ from those previously saved
     # update the user with the new values
-    unless new_token != self.auth_token && new_expiration != self.token_expiration
+    if new_token != self.auth_token && new_expiration != self.token_expiration
       self.update_attributes(auth_token: new_token, token_expiration: new_expiration)
+      self.save!
     end
   end
 
