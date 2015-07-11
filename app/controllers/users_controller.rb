@@ -5,7 +5,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @new_student = Student.new
     @students = @user.students
-    @upcoming_events = Calendar.new(@user.auth_token).upcoming_events
+    @calendar = Calendar.new(@user.auth_token)
+    @upcoming_events = @calendar.upcoming_events
+    @past_events = @calendar.past_events
   end
 
   private

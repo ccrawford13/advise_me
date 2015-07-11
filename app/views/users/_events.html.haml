@@ -1,10 +1,17 @@
-/ Output is an array of hashes
-/ utilize decorator or function in model to clean up output
 .cards
-- @events.each do |event|
+  %h3 Upcoming Appointments
+- @upcoming_events.each do |event|
   .card
     .card-header
       %h3= event.summary
     .card-copy
-      %p= event.start_time
-      %p= event.end_time
+      %p= "Starts: #{event.formatted_start_time}"
+      %p= "Ends: #{event.formatted_end_time}"
+  %h3 Past Appointments
+- @past_events.each do |event|
+  .card
+    .card-header
+      %h3= event.summary
+    .card-copy
+      %p= "Starts: #{event.formatted_start_time}"
+      %p= "Ends: #{event.formatted_end_time}"
