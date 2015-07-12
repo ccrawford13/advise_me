@@ -43,6 +43,8 @@ gem 'google-api-client', require: 'google/api_client'
 gem 'rest-client'
 gem 'mime-types', '~> 2.6.1'
 gem 'http-cookie', '~> 1.0.2'
+# Simple form
+gem 'simple_form'
 
 
 group :development, :test do

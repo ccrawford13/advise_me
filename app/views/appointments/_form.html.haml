@@ -1,0 +1,12 @@
+= simple_form_for [user, appointment], remote: true do |f|
+  .form__container
+    .field
+      = f.input :summary, id: "appt_summary", placeholder: "Title"
+    .field
+      = f.input :description, id: "appt_description", placeholder: "Description"
+    .field
+      = f.input :start_time, as: :datetime
+    .field
+      = f.input :attendees, id: "appt_attendees"
+    .submit
+      = f.button :submit, "Save appointment", id: "appt__save"
