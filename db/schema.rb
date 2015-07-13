@@ -20,11 +20,11 @@ ActiveRecord::Schema.define(version: 20150712032425) do
     t.integer  "user_id"
     t.string   "summary"
     t.string   "description"
-    t.string   "start_time"
-    t.string   "end_time"
-    t.string   "attendees",   default: [],              array: true
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "attendees"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "appointments", ["attendees"], name: "index_appointments_on_attendees", using: :btree

@@ -7,6 +7,8 @@
     .field
       = f.input :start_time, as: :datetime
     .field
+      = f.input :end_time, as: :datetime
+    .field
       = f.input :attendees, id: "appt_attendees"
     .submit
       = f.button :submit, "Save appointment", id: "appt__save"

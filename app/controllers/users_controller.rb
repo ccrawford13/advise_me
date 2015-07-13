@@ -9,6 +9,8 @@ class UsersController < ApplicationController
     @calendar = Calendar.new(@user.auth_token)
     @upcoming_events = @calendar.upcoming_events
     @past_events = @calendar.past_events
+    @new_appointment = Appointment.new
+    @appointments = @user.appointments
   end
 
   private
