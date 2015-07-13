@@ -1,7 +1,9 @@
 require 'time'
 require 'date'
 
-class Calendar
+class GoogleBase
+
+  attr_reader :token
 
   def initialize(token)
     @token = token
@@ -13,21 +15,28 @@ class Calendar
       application_name: 'Advise Me',
       application_version: '1'
     )
-    @client.authorization.access_token = @token
+    @client.authorization.access_token = token
     @client
   end
 
   def service
+    # Throw error if service is not provided by child classes
+    fail 'Not implemented'
+  end
+end
+
+class Calendar < GoogleBase
+  def service
     @service ||= client.discovered_api('calendar', 'v3')
   end
 
-  # iterate through all of the user's events
   def user_events
     page_token = nil
     result = client.execute(:api_method => service.events.list,
                             :parameters => {'calendarId' => 'primary'})
     events = []
     cancelled_events = []
+    # iterate through all of the user's events
     while true
       raw_events = result.data.items
       raw_events.each do |e|
@@ -41,9 +50,9 @@ class Calendar
       if !(page_token = result.data.next_page_token)
         break
       end
-      result = client.execute(:api_method => service.events.list,
-                              :parameters => {'calendarId' => 'primary',
-                                              'pageToken' => page_token})
+      result = client.execute(api_method: service.events.list,
+                              parameters: { 'calendarId' => 'priamary',
+                                           'pageToken' => page_token })
     end
     events
   end
@@ -76,39 +85,29 @@ class Calendar
     result = client.execute(
       :api_method => service.events.insert,
       :parameters => {
-        :calendarId => 'primary'},
+        :calendarId => 'primary' },
       :body_object => event)
     event = result.data
   end
 
   def upcoming_events
-    # call user_events to make sure
-    # everytime we change query parameters(upcoming or past events)
-    # a new API call is made to update events
-    events = user_events
-    upcoming_events = []
-    now = Time.now.to_i
-    events.each do |event|
-      if event.raw_end_time.to_i >= now
-        upcoming_events << event
-      end
-    end
-    upcoming_events
+    event_date_sort {|event| event.raw_end_time.to_i >= Time.now.to_i }
   end
 
   def past_events
-    events = user_events
-    past_events = []
-    now = Time.now.to_i
-    events.each do |event|
-      if event.raw_end_time.to_i <= now
-        past_events << event
-      end
-    end
-    past_events
+    event_date_sort {|event| event.raw_end_time.to_i <= Time.now.to_i }
+  end
+
+  def event_date_sort
+    # Map user_events and yield to block
+    # to map elements as upcoming or past events
+    user_events.map do |event|
+      event if yield(event)
+    end.compact
   end
 
   Event = Struct.new(:event_hash) do
+    DATE_FORMAT = '%A, %b %d at %I:%M %p'
 
     def raw_start_time
       event_hash['start']['dateTime']
@@ -119,11 +118,11 @@ class Calendar
     end
 
     def formatted_start_time
-      event_hash['start']['dateTime'].strftime('%A, %b %d at %I:%M %p')
+      raw_start_time.strftime('%A, %b %d at %I:%M %p')
     end
 
     def formatted_end_time
-      event_hash['end']['dateTime'].strftime('%A, %b %d at %I:%M %p')
+      raw_end_time.strftime('%A, %b %d at %I:%M %p')
     end
 
     def summary
