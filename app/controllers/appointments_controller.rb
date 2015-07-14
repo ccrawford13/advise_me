@@ -1,4 +1,3 @@
-require 'google/calendar/create_event'
 class AppointmentsController < ApplicationController
 
   before_action :find_user
