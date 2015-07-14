@@ -1,7 +1,7 @@
-.user__container--outer {
+.main-content__container--outer {
   @include outer-container;
 
-  .user__header {
+  .main-content__header {
     padding-top: 2em;
     text-align: center;
 
@@ -11,7 +11,7 @@
   }
 }
 
-.student__container--outer {
+.main-content__container--inner {
   @include outer-container;
 
     .button__container {

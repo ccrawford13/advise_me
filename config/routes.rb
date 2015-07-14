@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations', omniauth_callbacks: 'users/omniauth_callbacks'}
 
   resources :users, only: [:show] do
-    resources :students, only: [:new, :create], shallow: true
+    resources :students, only: [:new, :create, :show], shallow: true
     resources :appointments, only: [:new, :create], shallow: true
   end
 

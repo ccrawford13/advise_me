@@ -1,0 +1,16 @@
+.main-content__container--outer
+  .main-content__header
+    %h1= "#{@student.first_name}"
+.main-content__container--inner
+  %ul.accordion-tabs
+    %li.tab-header-and-content
+      = link_to "Student Information", "javascript:void(0)", class: "is-active tab-link"
+      .tab-content
+        = render partial: 'students/student_info', locals: { student: @student}
+    %li.tab-header-and-content
+      = link_to "Appointments | #{@appointments.count}", "javascript:void(0)", class: "tab-link"
+      .tab-content
+        = render partial: 'students/student_appts', locals: { upcoming_appointments: @upcoming_appointments, past_appointments: @past_appointments}
+    %li.tab-header-and-content
+      = link_to "Notes", "javascript:void(0)", class: "tab-link"
+      .tab-content
