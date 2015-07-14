@@ -1,0 +1,21 @@
+.cards
+  %h3 Upcoming Appointments
+- if @upcoming_events
+  - @upcoming_events.each do |event|
+    .card
+      .card-header
+        = link_to "#{event.summary}", "#{event.event_link}", target: "_blank"
+      .card-copy
+        %p= "Starts: #{event.formatted_start_time}"
+        %p= "Ends: #{event.formatted_end_time}"
+- else
+  %h3 You have no upcoming appointments scheduled
+- if @past_events
+  %h3 Past Appointments
+  - @past_events.each do |event|
+    .card
+      .card-header
+        = link_to "#{event.summary}", "#{event.event_link}", target: "_blank"
+      .card-copy
+        %p= "Starts: #{event.formatted_start_time}"
+        %p= "Ends: #{event.formatted_end_time}"

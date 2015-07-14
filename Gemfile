@@ -39,6 +39,12 @@ gem 'omniauth-google-oauth2'
 gem 'figaro'
 # Google API client
 gem 'google-api-client', require: 'google/api_client'
+# Rest-client
+gem 'rest-client'
+gem 'mime-types', '~> 2.6.1'
+gem 'http-cookie', '~> 1.0.2'
+# Simple form
+gem 'simple_form'
 
 
 group :development, :test do

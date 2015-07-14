@@ -7,10 +7,10 @@
       = link_to "Students | #{@user.student_count}", "javascript:void(0)", class: "is-active tab-link"
       .tab-content
         .button__container
-          %button.modal-trigger#add_student
-            %label{:for => "modal-1"} Add Student
+          %button.modal-trigger#student__new
+            %label{:for => "student"} Add Student
           .modal
-            %input#modal-1.modal-state{:type => "checkbox"}/
+            %input#student.modal-state{:type => "checkbox"}/
             .modal-window
               .modal-inner
                 = render partial: 'students/form', locals: { user: @user, student: @new_student  }
@@ -24,4 +24,14 @@
     %li.tab-header-and-content
       = link_to "Appointments", "javascript:void(0)", class: "tab-link"
       .tab-content
+        .button__container
+          %button.modal-trigger#appointment__new
+            %label{:for => "appointment"} New Appointment
+          .modal
+            %input#appointment.modal-state{:type => "checkbox"}/
+            .modal-window
+              .modal-inner
+                = render partial: 'appointments/form', locals: { user: @user, appointment: @new_appointment}
+        .appointments__list
+          = render partial: 'users/events'
         .student__cards
