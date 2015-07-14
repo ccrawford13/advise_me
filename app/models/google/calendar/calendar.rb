@@ -91,17 +91,28 @@ class Calendar < GoogleBase
   end
 
   def upcoming_events
-    event_date_sort {|event| event.raw_end_time.to_i >= Time.now.to_i }
+    map_events(user_events) {|event| event.upcoming_event_sort }
   end
 
   def past_events
-    event_date_sort {|event| event.raw_end_time.to_i <= Time.now.to_i }
+    map_events(user_events) {|event| event.past_event_sort }
   end
 
-  def event_date_sort
-    # Map user_events and yield to block
-    # to map elements as upcoming or past events
-    user_events.map do |event|
+  def appointments_with_attendee(attendee_email)
+    map_events(user_events) {|event| event.attendees == attendee_email }
+  end
+
+  def upcoming_appointment_with_attendee(attendee_appointments)
+    map_events(attendee_appointments) {|event| event.upcoming_event_sort }
+  end
+
+  def past_appointment_with_attendee(attendee_appointments)
+    map_events(attendee_appointments) {|event| event.past_event_sort }
+  end
+
+  def map_events(events)
+    # Map events and yield to block
+    events.map do |event|
       event if yield(event)
     end.compact
   end
@@ -129,8 +140,24 @@ class Calendar < GoogleBase
       event_hash['summary']
     end
 
+    def description
+      event_hash['description']
+    end
+
     def event_link
       event_hash['htmlLink']
+    end
+
+    def attendees
+      event_hash['attendees'][0].email if event_hash['attendees'][0]
+    end
+    
+    def upcoming_event_sort
+      raw_end_time.to_i >= Time.now.to_i
+    end
+
+    def past_event_sort
+      raw_end_time.to_i <= Time.now.to_i
     end
   end
 end
