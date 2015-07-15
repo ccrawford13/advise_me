@@ -1,5 +1,5 @@
-require 'time'
-require 'date'
+require "time"
+require "date"
 
 class GoogleBase
 
@@ -12,8 +12,8 @@ class GoogleBase
   def client
     return @client if @client.present?
     @client = Google::APIClient.new(
-      application_name: 'Advise Me',
-      application_version: '1'
+      application_name: "Advise Me",
+      application_version: "1"
     )
     @client.authorization.access_token = token
     @client
@@ -21,19 +21,19 @@ class GoogleBase
 
   def service
     # Throw error if service is not provided by child classes
-    fail 'Not implemented'
+    fail "Not implemented"
   end
 end
 
 class Calendar < GoogleBase
   def service
-    @service ||= client.discovered_api('calendar', 'v3')
+    @service ||= client.discovered_api("calendar", "v3")
   end
 
   def user_events
     page_token = nil
-    result = client.execute(:api_method => service.events.list,
-                            :parameters => { 'calendarId' => 'primary' })
+    result = client.execute(api_method: service.events.list,
+                            parameters: { "calendarId" => "primary" })
     events = []
     cancelled_events = []
     # iterate through all of the user's events
@@ -43,7 +43,7 @@ class Calendar < GoogleBase
         # small guard clause to avoid cancelled items
         # that have no summary or data fields from
         # raising errors. -> could be refactored further
-        unless e['status'] == 'cancelled'
+        unless e["status"] == "cancelled"
           events << Calendar::Event.new(e)
         end
       end
@@ -51,8 +51,8 @@ class Calendar < GoogleBase
         break
       end
       result = client.execute(api_method: service.events.list,
-                              parameters: { 'calendarId' => 'priamary',
-                                            'pageToken' => page_token })
+                              parameters: { "calendarId" => "priamary",
+                                            "pageToken" => page_token })
     end
     events
   end
@@ -83,10 +83,10 @@ class Calendar < GoogleBase
     # call client method to instantiate the client
     # and service method to set client service to calendar
     result = client.execute(
-      :api_method => service.events.insert,
-      :parameters => {
-        :calendarId => 'primary' },
-      :body_object => event)
+      api_method: service.events.insert,
+      parameters: {
+        calendarId: "primary" },
+      body_object: event)
     event = result.data
   end
 
@@ -118,38 +118,38 @@ class Calendar < GoogleBase
   end
 
   Event = Struct.new(:event_hash) do
-    DATE_FORMAT = '%A, %b %d at %I:%M %p'
+    DATE_FORMAT = "%A, %b %d at %I:%M %p"
 
     def raw_start_time
-      event_hash['start']['dateTime']
+      event_hash["start"]["dateTime"]
     end
 
     def raw_end_time
-      event_hash['end']['dateTime']
+      event_hash["end"]["dateTime"]
     end
 
     def formatted_start_time
-      raw_start_time.strftime('%A, %b %d at %I:%M %p')
+      raw_start_time.strftime("%A, %b %d at %I:%M %p")
     end
 
     def formatted_end_time
-      raw_end_time.strftime('%A, %b %d at %I:%M %p')
+      raw_end_time.strftime("%A, %b %d at %I:%M %p")
     end
 
     def summary
-      event_hash['summary']
+      event_hash["summary"]
     end
 
     def description
-      event_hash['description']
+      event_hash["description"]
     end
 
     def event_link
-      event_hash['htmlLink']
+      event_hash["htmlLink"]
     end
 
     def attendees
-      event_hash['attendees'][0].email if event_hash['attendees'][0]
+      event_hash["attendees"][0].email if event_hash["attendees"][0]
     end
 
     def upcoming_event_sort
