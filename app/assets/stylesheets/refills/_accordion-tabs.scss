@@ -4,9 +4,6 @@
   $base-border-radius: 3px !default;
   $base-background-color: white !default;
   $base-spacing: 1.5em !default;
-  $base-accent-color: #477DCA !default;
-  $base-link-color: $base-accent-color !default;
-  $dark-gray: #333 !default;
   $light-gray: #DDD !default;
   $medium-screen: em(640) !default;
   //////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +52,7 @@
   .tab-link {
     background-color: $tab-inactive-color;
     border-top: $tab-border;
-    color: $dark-gray;
+    color: $link-color;
     display: block;
     font-weight: bold;
     padding: $base-spacing/2 $gutter/2;
@@ -69,7 +66,7 @@
     }
 
     &:hover {
-      color: $base-link-color;
+      color: $link-color-hover;
     }
 
     &:focus {
