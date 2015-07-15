@@ -23,8 +23,9 @@ class StudentsController < ApplicationController
   end
 
   def show
-    @student = current_user.students.find_by_id(params[:id])
+    @student = @user.students.find_by_id(params[:id])
     @calendar = Calendar.new(@user.auth_token)
+    @new_appointment = Appointment.new
     @appointments = @calendar.appointments_with_attendee(@student.email)
     @upcoming_appointments = @calendar.upcoming_appointment_with_attendee(@appointments)
     @past_appointments = @calendar.past_appointment_with_attendee(@appointments)

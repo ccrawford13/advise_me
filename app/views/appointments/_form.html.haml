@@ -8,7 +8,11 @@
       = f.input :start_time, as: :datetime
     .field
       = f.input :end_time, as: :datetime
-    .field
-      = f.input :attendees, id: "appt_attendees", label: false, placeholder: "Attendees"
+    - if @student
+      .field
+        = f.input :attendees, id: "appt_attendees", label: false, input_html: { value: @student.email }
+    - else
+      .field
+        = f.input :attendees, id: "appt_attendees", label: false, placeholder: "Attendees"
     .submit
       = f.button :submit, "Save appointment", id: "appt__save"
