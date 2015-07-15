@@ -1,6 +1,8 @@
+require "google/calendar/calendar"
 class StudentsController < ApplicationController
 
   before_action :find_user
+  before_action :check_and_update_token
 
   def new
     @student = Student.new
@@ -20,14 +22,26 @@ class StudentsController < ApplicationController
     end
   end
 
+  def show
+    @student = @user.students.find_by_id(params[:id])
+    @calendar = Calendar.new(@user.auth_token)
+    @new_appointment = Appointment.new
+    @appointments = @calendar.appointments_with_attendee(@student.email)
+    @upcoming_appointments = @calendar.upcoming_appointment_with_attendee(@appointments)
+    @past_appointments = @calendar.past_appointment_with_attendee(@appointments)
+  end
+
   private
 
   def find_user
-    @user = User.find(params[:user_id])
+    @user = current_user
   end
 
   def student_params
     params.require(:student).permit(:first_name, :last_name, :email, :year, :major)
   end
 
+  def check_and_update_token
+    @user.check_auth_token
+  end
 end

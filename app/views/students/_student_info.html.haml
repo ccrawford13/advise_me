@@ -1,0 +1,7 @@
+.student-info__container--outer
+  .student-info__container--inner
+    .student-info__contact--container
+      %p= "Email: #{student.email}"
+      %p= "Status: #{student.year}"
+      %p= "Major: #{student.major}"
+      %p= "Advisor: #{student.user.first_name} #{student.user.last_name}"

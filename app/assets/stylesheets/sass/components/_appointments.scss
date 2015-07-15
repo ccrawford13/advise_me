@@ -1,0 +1,75 @@
+.appointment__container {
+  $appointment-background: $light-gray;
+  $base-border-radius: 3px !default;
+  $base-spacing: 1.5em !default;
+  $base-font-color: $dark-gray !default;
+  $appointment-gutter: 1.4em;
+  $appointment-image-padding: 0.7em;
+  $appointment-image-width: 6em;
+  $appointment-color: $base-font-color;
+  $appointment-detail-color: transparentize($appointment-color, 0.5);
+  $appointment-image-vert-alignment: top;
+
+  border-bottom: 1px solid transparentize($appointment-color, 0.9);
+  display: table;
+  margin-bottom: $base-spacing;
+  padding-bottom: 1em;
+  width: 100%;
+
+  .appointment__date,
+  .appointment__content {
+    display: table-cell;
+    vertical-align: $appointment-image-vert-alignment;
+  }
+
+  .appointment__date {
+    background: $appointment-background;
+    border-radius: $base-border-radius;
+    display: block;
+    height: auto;
+    max-width: 100%;
+    padding: $appointment-image-padding;
+    padding-right: $appointment-gutter;
+    text-align: center;
+    width: $appointment-image-width;
+
+    .month {
+      font-size: 1em;
+      margin: 0;
+    }
+
+    .date {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+    }
+
+    .day {
+      font-size: 0.75em;
+      margin: 0;
+    }
+  }
+
+  .appointment__content {
+    padding-left: $appointment-gutter;
+    width: 100%;
+  }
+
+  .appointment__content--title {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 0.5em;
+  }
+
+  .appointment__content--details {
+    line-height: 1.25em;
+    margin-bottom: 0.5em;
+
+    .details {
+      color: $appointment-detail-color;
+      font-size: 0.9em;
+      font-style: italic;
+    }
+  }
+}

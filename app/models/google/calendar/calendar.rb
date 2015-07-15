@@ -1,5 +1,6 @@
-require 'time'
-require 'date'
+require "time"
+require "date"
+require_relative "event"
 
 class GoogleBase
 
@@ -12,8 +13,8 @@ class GoogleBase
   def client
     return @client if @client.present?
     @client = Google::APIClient.new(
-      application_name: 'Advise Me',
-      application_version: '1'
+      application_name: "Advise Me",
+      application_version: "1"
     )
     @client.authorization.access_token = token
     @client
@@ -21,19 +22,19 @@ class GoogleBase
 
   def service
     # Throw error if service is not provided by child classes
-    fail 'Not implemented'
+    fail "Not implemented"
   end
 end
 
 class Calendar < GoogleBase
   def service
-    @service ||= client.discovered_api('calendar', 'v3')
+    @service ||= client.discovered_api("calendar", "v3")
   end
 
   def user_events
     page_token = nil
-    result = client.execute(:api_method => service.events.list,
-                            :parameters => {'calendarId' => 'primary'})
+    result = client.execute(api_method: service.events.list,
+                            parameters: { "calendarId" => "primary" })
     events = []
     cancelled_events = []
     # iterate through all of the user's events
@@ -43,16 +44,16 @@ class Calendar < GoogleBase
         # small guard clause to avoid cancelled items
         # that have no summary or data fields from
         # raising errors. -> could be refactored further
-        unless e['status'] == 'cancelled'
-          events << Calendar::Event.new(e)
+        unless e["status"] == "cancelled"
+          events << Event.new(e)
         end
       end
       if !(page_token = result.data.next_page_token)
         break
       end
       result = client.execute(api_method: service.events.list,
-                              parameters: { 'calendarId' => 'priamary',
-                                           'pageToken' => page_token })
+                              parameters: { "calendarId" => "priamary",
+                                            "pageToken" => page_token })
     end
     events
   end
@@ -83,54 +84,45 @@ class Calendar < GoogleBase
     # call client method to instantiate the client
     # and service method to set client service to calendar
     result = client.execute(
-      :api_method => service.events.insert,
-      :parameters => {
-        :calendarId => 'primary' },
-      :body_object => event)
+      api_method: service.events.insert,
+      parameters: {
+        calendarId: "primary" },
+      body_object: event)
     event = result.data
   end
 
+  def events_descending
+    # call user_events method to grab all events from Calendar API
+    # sort the items by descending date
+    user_events.sort! { |a, b| b.raw_start_time <=> a.raw_start_time }
+    # the methods that sort the events into "previous or past events"
+    # will call this method so the events are sorted before being mapped
+  end
+
   def upcoming_events
-    event_date_sort {|event| event.raw_end_time.to_i >= Time.now.to_i }
+    map_events(events_descending) { |event| event.upcoming_event_sort }
   end
 
   def past_events
-    event_date_sort {|event| event.raw_end_time.to_i <= Time.now.to_i }
+    map_events(events_descending) { |event| event.past_event_sort }
   end
 
-  def event_date_sort
-    # Map user_events and yield to block
-    # to map elements as upcoming or past events
-    user_events.map do |event|
+  def appointments_with_attendee(attendee_email)
+    map_events(events_descending) { |event| event.attendees == attendee_email }
+  end
+
+  def upcoming_appointment_with_attendee(attendee_appointments)
+    map_events(attendee_appointments) { |event| event.upcoming_event_sort }
+  end
+
+  def past_appointment_with_attendee(attendee_appointments)
+    map_events(attendee_appointments) { |event| event.past_event_sort }
+  end
+
+  def map_events(events)
+    # Map events and yield to block
+    events.map do |event|
       event if yield(event)
     end.compact
-  end
-
-  Event = Struct.new(:event_hash) do
-    DATE_FORMAT = '%A, %b %d at %I:%M %p'
-
-    def raw_start_time
-      event_hash['start']['dateTime']
-    end
-
-    def raw_end_time
-      event_hash['end']['dateTime']
-    end
-
-    def formatted_start_time
-      raw_start_time.strftime('%A, %b %d at %I:%M %p')
-    end
-
-    def formatted_end_time
-      raw_end_time.strftime('%A, %b %d at %I:%M %p')
-    end
-
-    def summary
-      event_hash['summary']
-    end
-
-    def event_link
-      event_hash['htmlLink']
-    end
   end
 end

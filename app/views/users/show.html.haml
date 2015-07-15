@@ -1,7 +1,7 @@
-.user__container--outer
-  .user__header
+.main-content__container--outer
+  .main-content__header
     %h1= "#{@user.full_name}"
-.student__container--outer
+.main-content__container--inner
   %ul.accordion-tabs
     %li.tab-header-and-content
       = link_to "Students | #{@user.student_count}", "javascript:void(0)", class: "is-active tab-link"
@@ -13,10 +13,10 @@
             %input#student.modal-state{:type => "checkbox"}/
             .modal-window
               .modal-inner
-                = render partial: 'students/form', locals: { user: @user, student: @new_student  }
+                = render partial: "students/form", locals: { user: @user, student: @new_student  }
         .student__cards
           .cards
-            = render partial: 'students/students', collection: @students, as: :student
+            = render partial: "students/students", collection: @students, as: :student
     %li.tab-header-and-content
       = link_to "Tasks", "javascript:void(0)", class: "tab-link"
       .tab-content
@@ -31,7 +31,7 @@
             %input#appointment.modal-state{:type => "checkbox"}/
             .modal-window
               .modal-inner
-                = render partial: 'appointments/form', locals: { user: @user, appointment: @new_appointment}
+                = render partial: "appointments/form", locals: { user: @user, appointment: @new_appointment}
         .appointments__list
-          = render partial: 'users/events'
+          = render partial: "users/events", locals: { upcoming_events: @upcoming_events, past_events: @past_events}
         .student__cards

@@ -1,4 +1,4 @@
-require 'google/calendar/calendar'
+require "google/calendar/calendar"
 class UsersController < ApplicationController
   before_action :check_and_update_token
 

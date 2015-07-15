@@ -1,0 +1,7 @@
+%h3 Upcoming Appointments
+- if upcoming_appointments
+  = render partial: "appointments/appointments", collection: @upcoming_appointments, as: :appointment
+
+- if past_appointments
+  %h3 Past Appointments
+  = render partial: "appointments/appointments", collection: @past_appointments, as: :appointment
