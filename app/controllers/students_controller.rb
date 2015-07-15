@@ -1,4 +1,4 @@
-require 'google/calendar/calendar'
+require "google/calendar/calendar"
 class StudentsController < ApplicationController
 
   before_action :find_user
