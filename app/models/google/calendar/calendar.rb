@@ -1,5 +1,6 @@
 require "time"
 require "date"
+require_relative "event"
 
 class GoogleBase
 
@@ -44,7 +45,7 @@ class Calendar < GoogleBase
         # that have no summary or data fields from
         # raising errors. -> could be refactored further
         unless e["status"] == "cancelled"
-          events << Calendar::Event.new(e)
+          events << Event.new(e)
         end
       end
       if !(page_token = result.data.next_page_token)
@@ -115,49 +116,5 @@ class Calendar < GoogleBase
     events.map do |event|
       event if yield(event)
     end.compact
-  end
-
-  Event = Struct.new(:event_hash) do
-    DATE_FORMAT = "%A, %b %d at %I:%M %p"
-
-    def raw_start_time
-      event_hash["start"]["dateTime"]
-    end
-
-    def raw_end_time
-      event_hash["end"]["dateTime"]
-    end
-
-    def formatted_start_time
-      raw_start_time.strftime("%A, %b %d at %I:%M %p")
-    end
-
-    def formatted_end_time
-      raw_end_time.strftime("%A, %b %d at %I:%M %p")
-    end
-
-    def summary
-      event_hash["summary"]
-    end
-
-    def description
-      event_hash["description"]
-    end
-
-    def event_link
-      event_hash["htmlLink"]
-    end
-
-    def attendees
-      event_hash["attendees"][0].email if event_hash["attendees"][0]
-    end
-
-    def upcoming_event_sort
-      raw_end_time.to_i >= Time.now.to_i
-    end
-
-    def past_event_sort
-      raw_end_time.to_i <= Time.now.to_i
-    end
   end
 end
