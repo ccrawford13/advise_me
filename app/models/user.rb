@@ -6,10 +6,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
-  validates_presence_of :first_name
-  validates_presence_of :last_name
-  validates_presence_of :position
-  validates_presence_of :organization
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :position, presence: true
+  validates :organization, presence: true
 
   def self.from_omniauth(access_token)
     data = access_token.info

@@ -1,10 +1,10 @@
 class Student < ActiveRecord::Base
   belongs_to :user
 
-  validates_presence_of :user
-  validates_presence_of :first_name
-  validates_presence_of :last_name
-  validates_presence_of :email, unique: true
-  validates_presence_of :year
-  validates_presence_of :major
+  validates :user, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :year, presence: true
+  validates :major, presence: true
 end
