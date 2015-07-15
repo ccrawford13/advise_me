@@ -13,10 +13,10 @@
             %input#student.modal-state{:type => "checkbox"}/
             .modal-window
               .modal-inner
-                = render partial: 'students/form', locals: { user: @user, student: @new_student  }
+                = render partial: "students/form", locals: { user: @user, student: @new_student  }
         .student__cards
           .cards
-            = render partial: 'students/students', collection: @students, as: :student
+            = render partial: "students/students", collection: @students, as: :student
     %li.tab-header-and-content
       = link_to "Tasks", "javascript:void(0)", class: "tab-link"
       .tab-content
@@ -31,8 +31,8 @@
             %input#appointment.modal-state{:type => "checkbox"}/
             .modal-window
               .modal-inner
-                = render partial: 'appointments/form', locals: { user: @user, appointment: @new_appointment}
+                = render partial: "appointments/form", locals: { user: @user, appointment: @new_appointment}
         .appointments__list
-          = render partial: 'users/events'
+          = render partial: "users/events", locals: { upcoming_events: @upcoming_events, past_events: @past_events}
         .student__cards
 = console

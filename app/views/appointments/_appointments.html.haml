@@ -1,0 +1,11 @@
+.appointment__container
+  .appointment__date
+    %p.month= "#{appointment.month}"
+    %p.date= "#{appointment.date}"
+    %p.day= "#{appointment.day}"
+  .appointment__content
+    .appointment__content--title
+      = link_to "#{appointment.summary}", "#{appointment.event_link}", target: "_blank"
+    .appointment__content--details
+      %p= "#{appointment.description}"
+      %p= "#{appointment.formatted_start_time} to #{appointment.formatted_end_time}"

@@ -1,19 +1,7 @@
-.cards
+%h3 Upcoming Appointments
 - if upcoming_appointments
-  %h3 Upcoming Appointments
-  - upcoming_appointments.each do |appointment|
-    .card
-      .card-header
-        = link_to "#{appointment.summary}", "#{appointment.event_link}", target: "_blank"
-      .card-copy
-        %p= "#{appointment.description}"
-        %p= "#{appointment.formatted_start_time} to #{appointment.formatted_end_time}"
+  = render partial: "appointments/appointments", collection: @upcoming_appointments, as: :appointment
+
 - if past_appointments
   %h3 Past Appointments
-  - past_appointments.each do |appointment|
-    .card
-      .card-header
-        = link_to "#{appointment.summary}", "#{appointment.event_link}", target: "_blank"
-      .card-copy
-        %p= "#{appointment.description}"
-        %p= "#{appointment.formatted_start_time} to #{appointment.formatted_end_time}"
+  = render partial: "appointments/appointments", collection: @past_appointments, as: :appointment
