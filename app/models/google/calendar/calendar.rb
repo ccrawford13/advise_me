@@ -91,16 +91,24 @@ class Calendar < GoogleBase
     event = result.data
   end
 
+  def events_descending
+    # call user_events method to grab all events from Calendar API
+    # sort the items by descending date
+    user_events.sort! { |a, b| b.raw_start_time <=> a.raw_start_time }
+    # the methods that sort the events into "previous or past events"
+    # will call this method so the events are sorted before being mapped
+  end
+
   def upcoming_events
-    map_events(user_events) { |event| event.upcoming_event_sort }
+    map_events(events_descending) { |event| event.upcoming_event_sort }
   end
 
   def past_events
-    map_events(user_events) { |event| event.past_event_sort }
+    map_events(events_descending) { |event| event.past_event_sort }
   end
 
   def appointments_with_attendee(attendee_email)
-    map_events(user_events) { |event| event.attendees == attendee_email }
+    map_events(events_descending) { |event| event.attendees == attendee_email }
   end
 
   def upcoming_appointment_with_attendee(attendee_appointments)
