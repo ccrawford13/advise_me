@@ -8,4 +8,4 @@
       = link_to "#{appointment.summary}", "#{appointment.event_link}", target: "_blank"
     .appointment__content--details
       %p= "#{appointment.description}"
-      %p= "#{appointment.formatted_start_time} to #{appointment.formatted_end_time}"
+      %p.details= "#{appointment.formatted_start_time} to #{appointment.formatted_end_time}"

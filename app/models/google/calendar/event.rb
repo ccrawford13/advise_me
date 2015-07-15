@@ -5,7 +5,7 @@ class Event
     @event_hash = event_hash
   end
 
-  FULL_DATE_FORMAT = "%A, %b %d at %I:%M %p"
+  FULL_DATE_FORMAT = "%A, at %I:%M %p"
   MONTH = "%B"
   DATE = "%d"
   DAY = "%A"
