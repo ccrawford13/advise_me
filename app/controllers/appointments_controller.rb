@@ -7,6 +7,7 @@ class AppointmentsController < ApplicationController
   end
 
   def create
+    @new_appointment = Appointment.new
     @appointment = @user.appointments.build(appointment_params)
     @calendar = Calendar.new(@user.auth_token)
 

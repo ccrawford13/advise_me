@@ -1,9 +1,12 @@
 <% if @appointment.valid? %>
   // close modal
   $(".modal-state:checked").prop("checked", false).change();
-  $('.user__container--outer').prepend("<div class='flash-success flash-message'><%= flash[:success] %> </div>");
-  $('.flash-message').fadeOut(5000);
+  // render blank form
+  $(".form__container").html("<%= escape_javascript(render partial: 'appointments/form', locals: { user: @user, appointment: @new_appointment }) %>");
+
+  $(".main-content__container--outer").prepend("<div class='flash-success flash-message'><%= flash[:success] %> </div>");
+  $(".flash-message").fadeOut(5000);
 <% else %>
-  $('.modal-inner').prepend("<div class='flash-error flash-message'> <%= flash[:error] %> </div>");
-  $('.flash-message').fadeOut(5000);
+  $(".modal-inner").prepend("<div class='flash-error flash-message'> <%= flash[:error] %> </div>");
+  $(".flash-message").fadeOut(5000);
 <% end %>
