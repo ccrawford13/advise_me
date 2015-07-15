@@ -12,13 +12,9 @@ class StudentsController < ApplicationController
     @student = @user.students.build(student_params)
 
     if @student.save
-      respond_to do |format|
-        format.js { flash[:success] = "Student successfully added" }
-      end
+      flash.now[:success] = "Student successfully added"
     else
-      respond_to do |format|
-        format.js { flash[:error] = "Student could not be saved. #{@student.clean_error_messages}" }
-      end
+      flash.now[:error] = @student.errors.full_messages.join("<br/>").html_safe
     end
   end
 
