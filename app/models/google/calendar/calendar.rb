@@ -33,7 +33,7 @@ class Calendar < GoogleBase
   def user_events
     page_token = nil
     result = client.execute(:api_method => service.events.list,
-                            :parameters => {'calendarId' => 'primary'})
+                            :parameters => { 'calendarId' => 'primary' })
     events = []
     cancelled_events = []
     # iterate through all of the user's events
@@ -52,7 +52,7 @@ class Calendar < GoogleBase
       end
       result = client.execute(api_method: service.events.list,
                               parameters: { 'calendarId' => 'priamary',
-                                           'pageToken' => page_token })
+                                            'pageToken' => page_token })
     end
     events
   end
@@ -91,23 +91,23 @@ class Calendar < GoogleBase
   end
 
   def upcoming_events
-    map_events(user_events) {|event| event.upcoming_event_sort }
+    map_events(user_events) { |event| event.upcoming_event_sort }
   end
 
   def past_events
-    map_events(user_events) {|event| event.past_event_sort }
+    map_events(user_events) { |event| event.past_event_sort }
   end
 
   def appointments_with_attendee(attendee_email)
-    map_events(user_events) {|event| event.attendees == attendee_email }
+    map_events(user_events) { |event| event.attendees == attendee_email }
   end
 
   def upcoming_appointment_with_attendee(attendee_appointments)
-    map_events(attendee_appointments) {|event| event.upcoming_event_sort }
+    map_events(attendee_appointments) { |event| event.upcoming_event_sort }
   end
 
   def past_appointment_with_attendee(attendee_appointments)
-    map_events(attendee_appointments) {|event| event.past_event_sort }
+    map_events(attendee_appointments) { |event| event.past_event_sort }
   end
 
   def map_events(events)
@@ -151,7 +151,7 @@ class Calendar < GoogleBase
     def attendees
       event_hash['attendees'][0].email if event_hash['attendees'][0]
     end
-    
+
     def upcoming_event_sort
       raw_end_time.to_i >= Time.now.to_i
     end
