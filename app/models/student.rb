@@ -10,7 +10,7 @@ class Student < ActiveRecord::Base
 
   def self.import(user_id, file)
     CSV.foreach(file.path, headers: true) do |row|
-      student_values = row.to_hash.delete_if { |k, v| v == nil }
+      student_values = row.to_hash.delete_if { |_k, v| v == nil }
       student_values.store("user_id", "#{user_id}")
       student = Student.where(email: student_values["email"]).first
       if student
