@@ -28,9 +28,9 @@ class StudentsController < ApplicationController
   end
 
   def import
-      @student = Student.import(params[:user_id], params[:file])
-      flash[:success] = "Students successfully added"
-      redirect_to user_path(@user)
+    @student = Student.import(params[:user_id], params[:file])
+    flash[:success] = "Students successfully added"
+    redirect_to user_path(@user)
     rescue StandardError => e
       flash[:error] = "Students could not be added." " #{e}"
       redirect_to user_path(@user)
