@@ -1,0 +1,6 @@
+= form_tag import_user_students_path(user),  multipart: true do |f|
+  .form__container
+    .field
+      = file_field_tag :file
+    .submit
+      = submit_tag "Import students", id: "save_student"

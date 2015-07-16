@@ -27,6 +27,17 @@ class StudentsController < ApplicationController
     @past_appointments = @calendar.past_appointment_with_attendee(@appointments)
   end
 
+  def import
+    begin
+      @student = Student.import(params[:user_id], params[:file])
+      flash[:success] = "Students successfully added"
+      redirect_to user_path(@user)
+    rescue Exception => e
+      flash[:error] = "Students could not be added." " #{e}"
+      redirect_to user_path(@user)
+    end
+  end
+
   private
 
   def find_user
@@ -34,7 +45,7 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:first_name, :last_name, :email, :year, :major)
+    params.require(:student).permit(:first_name, :last_name, :email, :year, :major, :file)
   end
 
   def check_and_update_token

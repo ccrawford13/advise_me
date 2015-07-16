@@ -13,7 +13,7 @@
           %li.tab-header-and-content
             = link_to "Import Students", "javascript:void(0)", class: "tab-link"
             .tab-content
-              -# render import students form here
+              = render partial: "students/student_import", locals: { user: @user }
 .student__cards
   .cards
     = render partial: "students/students", collection: @students, as: :student
