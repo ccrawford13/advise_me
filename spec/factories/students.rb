@@ -9,5 +9,4 @@ FactoryGirl.define do
     major { Faker::Lorem.words(2) }
     user
   end
-
 end

@@ -6,5 +6,4 @@ FactoryGirl.define do
     date { Faker::Date.between(10.days.ago, Date.today) }
     student
   end
-  
 end
