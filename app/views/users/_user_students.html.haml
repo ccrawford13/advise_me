@@ -17,3 +17,5 @@
 .student__cards
   .cards
     = render partial: "students/student", collection: @students, as: :student
+.student__pagination
+  = will_paginate @students

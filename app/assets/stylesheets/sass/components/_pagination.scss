@@ -1,0 +1,47 @@
+.pagination {
+  $base-border-color: #dcdcdc;
+  $base-border-radius: 3px !default;
+  $base-spacing: 1.5em !default;
+  $pagination-border-color: $base-border-color;
+  $pagination-border: 1px solid $pagination-border-color;
+  $pagination-background: lighten($pagination-border-color, 10);
+  $pagination-hover-background: lighten($pagination-background, 5);
+  $pagination-color: $base-font-color;
+
+  text-align: center;
+
+  span.disabled {
+    display: none;
+  }
+
+  a {
+    @include transition (all 0.2s ease-in-out);
+    background: $pagination-background;
+    border: $pagination-border;
+    border-radius: $base-border-radius;
+    color: $pagination-color;
+    display: inline;
+    margin: 0;
+    outline: none;
+    padding: ($base-spacing / 4) ($gutter / 2);
+    text-align: center;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      background: $pagination-hover-background;
+      color: $action-color;
+    }
+  }
+
+  em.current {
+    @include transition (all 0.2s ease-in-out);
+    background: $pagination-hover-background;
+    border: $pagination-border;
+    border-radius: $base-border-radius;
+    color: $link-color-hover;
+    outline: none;
+    padding: ($base-spacing / 4) ($gutter / 2);
+    text-decoration: none;
+  }
+}
