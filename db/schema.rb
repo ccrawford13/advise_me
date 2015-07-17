@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20150717182433) do
 
   create_table "notes", force: :cascade do |t|
     t.integer  "student_id"
+    t.string   "title"
     t.text     "body"
     t.datetime "date"
     t.datetime "created_at", null: false
