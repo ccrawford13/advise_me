@@ -12,13 +12,9 @@ class StudentsController < ApplicationController
     @student = @user.students.build(student_params)
 
     if @student.save
-      respond_to do |format|
-        format.js { flash[:success] = "Student successfully added" }
-      end
+      flash.now[:success] = "Student successfully added"
     else
-      respond_to do |format|
-        format.js { flash[:error] = "Student could not be saved. #{@student.clean_error_messages}" }
-      end
+      flash.now[:error] = @student.errors.full_messages.join("<br/>").html_safe
     end
   end
 
@@ -31,6 +27,15 @@ class StudentsController < ApplicationController
     @past_appointments = @calendar.past_appointment_with_attendee(@appointments)
   end
 
+  def import
+    @student = Student.import(params[:user_id], params[:file])
+    flash[:success] = "Students successfully added"
+    redirect_to user_path(@user)
+    rescue StandardError => e
+      flash[:error] = "Students could not be added." " #{e}"
+      redirect_to user_path(@user)
+  end
+
   private
 
   def find_user
@@ -38,7 +43,7 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:first_name, :last_name, :email, :year, :major)
+    params.require(:student).permit(:first_name, :last_name, :email, :year, :major, :file)
   end
 
   def check_and_update_token

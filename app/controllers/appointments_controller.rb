@@ -14,12 +14,10 @@ class AppointmentsController < ApplicationController
     if @appointment.save
       @new_event = @calendar.new_event(@appointment)
       # make API call to refresh upcoming_events list
-      # this could be moved to js to refresh page before
-      # or right after modal closes
       @calendar.upcoming_events
       flash.now[:success] = "Appointment successfully created"
     else
-      flash.now[:error] = "Appointment could not be saved"
+      flash.now[:error] = @appointment.errors.full_messages.join("<br/>").html_safe
     end
   end
 

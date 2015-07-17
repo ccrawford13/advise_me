@@ -1,0 +1,19 @@
+.button__container
+  %button.modal-trigger#student__new
+    %label{:for => "student"} Add Student
+  .modal
+    %input#student.modal-state{:type => "checkbox"}/
+    .modal-window
+      .modal-inner
+        %ul.student__accordion-tabs
+          %li.tab-header-and-content
+            = link_to "Add Student", "javascript:void(0)", class: "is-active tab-link"
+            .tab-content
+              = render partial: "students/form", locals: { user: @user, student: @new_student  }
+          %li.tab-header-and-content
+            = link_to "Import Students", "javascript:void(0)", class: "tab-link"
+            .tab-content
+              = render partial: "students/student_import", locals: { user: @user }
+.student__cards
+  .cards
+    = render partial: "students/students", collection: @students, as: :student

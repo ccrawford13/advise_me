@@ -1,16 +1,27 @@
 class Student < ActiveRecord::Base
   belongs_to :user
 
-  validates_presence_of :user
-  validates_presence_of :first_name
-  validates_presence_of :last_name
-  validates_presence_of :email, unique: true
-  validates_presence_of :year
-  validates_presence_of :major
+  validates :user, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :year, presence: true
+  validates :major, presence: true
 
-  def clean_error_messages
-    stringify = self.errors.full_messages.to_s
-    stringify.tr('[]', '')
+  def self.import(user_id, file)
+    CSV.foreach(file.path, headers: true) do |row|
+      student_values = row.to_hash.delete_if { |_k, v| v == nil }
+      student_values.store("user_id", "#{user_id}")
+      student = Student.where(email: student_values["email"]).first
+      if student
+        student.update_attributes(student_values)
+      else
+        if student_values.length > 1
+          Student.create!(student_values).valid?
+        else
+          false
+        end
+      end
+    end
   end
-
 end
