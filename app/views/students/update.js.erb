@@ -1,6 +1,8 @@
 <% if @student.valid? %>
-  // add student to list
-  $(".cards").prepend("<%= escape_javascript(render 'students/student', student: @student) %>");
+  // update student information
+  $(".student-info__container--outer").html("<%= escape_javascript(render 'students/student_info', student: @student) %>");
+  // update student name in header
+  $(".main-content__header").html("<h1> <%= @student.first_name %> <%= @student.last_name %> </h1>")
   // close modal
   $(".modal-state:checked").prop("checked", false).change();
   $(".main-content__container--outer").prepend("<div class='flash-success flash-message'><%= flash[:success] %> </div>");

@@ -8,6 +8,15 @@ class StudentsController < ApplicationController
     @student = Student.new
   end
 
+  def import
+    @student = Student.import(params[:user_id], params[:file])
+    flash[:success] = "Students successfully added"
+    redirect_to user_path(@user)
+    rescue StandardError => e
+      flash[:error] = "Students could not be added." " #{e}"
+      redirect_to user_path(@user)
+  end
+
   def create
     @student = @user.students.build(student_params)
 
@@ -27,13 +36,14 @@ class StudentsController < ApplicationController
     @past_appointments = @calendar.past_appointment_with_attendee(@appointments)
   end
 
-  def import
-    @student = Student.import(params[:user_id], params[:file])
-    flash[:success] = "Students successfully added"
-    redirect_to user_path(@user)
-    rescue StandardError => e
-      flash[:error] = "Students could not be added." " #{e}"
-      redirect_to user_path(@user)
+  def update
+    @student = @user.students.find_by_id(params[:id])
+
+    if @student.update_attributes(student_params)
+      flash.now[:success] = "Student successfully updated"
+    else
+      flash.now[:error] = @student.errors.full_messages.join("<br/>").html_safe
+    end
   end
 
   private

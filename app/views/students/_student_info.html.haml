@@ -1,4 +1,12 @@
 .student-info__container--outer
+  .button__container
+    %button.modal-trigger#student__new
+      %label{:for => "student"} Edit Student
+    .modal
+      %input#student.modal-state{:type => "checkbox"}/
+      .modal-window
+        .modal-inner
+          = render partial: "students/form", locals: { user: nil, student: @student  }
   .student-info__container--inner
     .student-info__contact--container
       %p= "Email: #{student.email}"
