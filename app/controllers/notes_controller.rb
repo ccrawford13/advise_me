@@ -6,6 +6,7 @@ class NotesController < ApplicationController
 
   def create
     @student = Student.find(params[:student_id])
+    @new_note = Note.new
     @note = @student.notes.build(note_params)
 
     if @note.save

@@ -1,5 +1,10 @@
 .note__container
-  .note__header
-    %h1= "#{note.title}"
-  .note__body
-    %p= "#{note.body}"
+  .note__date
+    %p.month= "#{note.month}"
+    %p.date= "#{note.date_num}"
+    %p.day= "#{note.day}"
+  .note__content
+    .note__content--title
+      = link_to "#{note.title}", "#", target: "_blank"
+    .note__content--details
+      %p= "#{note.body}"
