@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do
     resources :students, except: [:index], shallow: true do
       collection { post :import }
+      resources :notes, only: [:new, :create], shallow: true
     end
     resources :appointments, only: [:new, :create], shallow: true
   end
