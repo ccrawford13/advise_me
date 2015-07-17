@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @new_student = Student.new
-    @students = @user.students
+    @students = @user.students.paginate(page: params[:page], per_page: 8)
     @calendar = Calendar.new(@user.auth_token)
     @upcoming_events = @calendar.upcoming_events
     @past_events = @calendar.past_events
