@@ -1,0 +1,11 @@
+<% if @note.valid? %>
+  // add note to list
+  $(".note__list--container").prepend("<%= escape_javascript(render 'notes/note', note: @note) %>");
+  // close modal
+  $(".modal-state:checked").prop("checked", false).change();
+  $(".main-content__container--outer").prepend("<div class='flash-success flash-message'><%= flash[:success] %> </div>");
+  $(".flash-message").fadeOut(5000);
+<% else %>
+  $(".modal-inner").prepend("<div class='flash-error flash-message'> <%= flash[:error] %> </div>");
+  $(".flash-message").fadeOut(5000);
+<% end %>

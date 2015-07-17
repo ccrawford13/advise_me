@@ -25,6 +25,8 @@ class StudentsController < ApplicationController
     @appointments = @calendar.appointments_with_attendee(@student.email)
     @upcoming_appointments = @calendar.upcoming_appointment_with_attendee(@appointments)
     @past_appointments = @calendar.past_appointment_with_attendee(@appointments)
+    @new_note = Note.new
+    @notes = @student.notes
   end
 
   def update
