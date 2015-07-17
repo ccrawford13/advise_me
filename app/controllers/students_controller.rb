@@ -27,6 +27,16 @@ class StudentsController < ApplicationController
     @past_appointments = @calendar.past_appointment_with_attendee(@appointments)
   end
 
+  def update
+    @student = @user.students.find_by_id(params[:id])
+
+    if @student.update_attributes(student_params)
+      flash.now[:success] = "Student successfully updated"
+    else
+      flash.now[:error] = @student.errors.full_messages.join("<br/>").html_safe
+    end
+  end
+
   def import
     @student = Student.import(params[:user_id], params[:file])
     flash[:success] = "Students successfully added"
