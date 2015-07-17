@@ -8,15 +8,6 @@ class StudentsController < ApplicationController
     @student = Student.new
   end
 
-  def import
-    @student = Student.import(params[:user_id], params[:file])
-    flash[:success] = "Students successfully added"
-    redirect_to user_path(@user)
-    rescue StandardError => e
-      flash[:error] = "Students could not be added." " #{e}"
-      redirect_to user_path(@user)
-  end
-
   def create
     @student = @user.students.build(student_params)
 
@@ -44,6 +35,15 @@ class StudentsController < ApplicationController
     else
       flash.now[:error] = @student.errors.full_messages.join("<br/>").html_safe
     end
+  end
+
+  def import
+    @student = Student.import(params[:user_id], params[:file])
+    flash[:success] = "Students successfully added"
+    redirect_to user_path(@user)
+    rescue StandardError => e
+      flash[:error] = "Students could not be added." " #{e}"
+      redirect_to user_path(@user)
   end
 
   private
