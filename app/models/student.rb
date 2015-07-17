@@ -1,5 +1,6 @@
 class Student < ActiveRecord::Base
   belongs_to :user
+  has_many :notes
 
   validates :user, presence: true
   validates :first_name, presence: true
