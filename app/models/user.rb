@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def student_sort(sort_query)
-    self.students.order(sort_query)
+    students.order(sort_query)
   end
 
   def full_name
