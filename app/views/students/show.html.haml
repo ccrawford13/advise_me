@@ -12,6 +12,6 @@
       .tab-content
         = render partial: "students/student_appts", locals: { upcoming_appointments: @upcoming_appointments, past_appointments: @past_appointments }
     %li.tab-header-and-content
-      = link_to "Notes", "javascript:void(0)", class: "tab-link", id: "student__notes"
+      = link_to "Notes | #{@notes.count}", "javascript:void(0)", class: "tab-link", id: "student__notes"
       .tab-content
         = render partial: "students/student_notes", locals: { student: @student }
