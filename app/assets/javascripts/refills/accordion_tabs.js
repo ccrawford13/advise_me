@@ -20,6 +20,24 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+  // get current url
+  var url = window.location.toString();
+  // compare url to students param in url
+  var onStudentPage = function() {
+    if (url.toLowerCase().indexOf("students") >= 0)
+      return true;
+  };
+  // compare url to page query when paginating
+  var paginatingNotes = function() {
+    if (url.toLowerCase().indexOf("page") >= 0)
+      return true;
+  };
+  // if on students page and paginating notes
+  // set default page to notes on reload
+  if (onStudentPage() && paginatingNotes()) {
+    $("#student__notes").trigger("click");
+  }
+
   // if modal button is clicked
   // default first accordion tab as open and displayed
   $("#student__new").on("click", function() {
@@ -49,5 +67,6 @@ $(document).ready(function() {
     } else {
       event.preventDefault();
     }
+
   });
 });
