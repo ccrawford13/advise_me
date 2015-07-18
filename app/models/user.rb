@@ -29,8 +29,8 @@ class User < ActiveRecord::Base
                            provider: access_token["provider"]
 
         )
+        user.save!
     end
-    user.save!
     user
   end
 
