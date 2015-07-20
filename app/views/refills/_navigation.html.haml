@@ -1,0 +1,17 @@
+%header.navigation{:role => "banner"}
+  .navigation-wrapper
+    %a.logo{:href => root_path}
+      %img{:alt => "Logo Image", :src => "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1.png"}/
+    %a#js-mobile-menu.navigation-menu-button{:href => "javascript:void(0)"} MENU
+    %nav{:role => "navigation"}
+      %ul#js-navigation-menu.navigation-menu.show
+        - if current_user
+          %li.nav-link
+            = link_to "Dashboard", user_path(current_user), id: "user_dashboard"
+    .navigation-tools
+      - if current_user
+        %li.nav-link
+          = link_to "Sign Out", destroy_user_session_path, id: "sign_out", method: :delete, class: "sign-up"
+      - else
+        %li.nav-link
+          = link_to "Sign In / Sign Up", user_omniauth_authorize_path(:google_oauth2), id: "google_sign_in", class: "sign-up"
