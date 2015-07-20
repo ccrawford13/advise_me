@@ -1,0 +1,71 @@
+.note__container {
+  $note-background: $light-gray;
+  $base-border-radius: 3px !default;
+  $base-spacing: 1.5em !default;
+  $base-font-color: $dark-gray !default;
+  $note-gutter: 1.4em;
+  $appointment-date-padding: 0.7em;
+  $appointment-date-width: 6em;
+  $note-date-padding: 0.7em;
+  $note-date-width: 6em;
+  $note-color: $base-font-color;
+  $note-detail-color: transparentize($note-color, 0.5);
+  $note-date-vert-alignment: top;
+
+  border-bottom: 1px solid transparentize($note-color, 0.9);
+  display: table;
+  margin-bottom: $base-spacing;
+  padding-bottom: 1em;
+  width: 100%;
+
+  .note__date,
+  .note__content {
+    display: table-cell;
+    vertical-align: top;
+  }
+
+  .note__date {
+    background: $note-background;
+    border-radius: $base-border-radius;
+    display: block;
+    height: auto;
+    max-width: 100%;
+    padding: $note-date-padding;
+    padding-right: $note-gutter;
+    text-align: center;
+    width: $note-date-width;
+
+    .month {
+      font-size: 1em;
+      margin: 0;
+    }
+
+    .date {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+    }
+
+    .day {
+      font-size: 0.75em;
+      margin: 0;
+    }
+  }
+
+  .note__content {
+    padding-left: $note-gutter;
+    width: 100%;
+  }
+
+  .note__content--title {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 0.5em;
+  }
+
+  .note__content--details {
+    line-height: 1.25em;
+    margin-bottom: 0.5em;
+  }
+}

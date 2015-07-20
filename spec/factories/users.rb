@@ -9,5 +9,4 @@ FactoryGirl.define do
     email { Faker::Internet.email("#{last_name}") }
     password { Faker::Internet.password }
   end
-
 end

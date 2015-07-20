@@ -1,0 +1,10 @@
+= simple_form_for [student, note], remote: true do |f|
+  .form__container
+    .field
+      = f.input :date, as: :datetime, id: "note__date"
+    .field
+      = f.input :title, id: "note__title", label: false, placeholder: "Title"
+    .field
+      = f.input :body, id: "note__body", label: false, placeholder: "Body"
+    .submit
+      = f.button :submit, "Save note", id: "note__save"

@@ -1,7 +1,16 @@
-%h3 Upcoming Appointments
-- if upcoming_appointments
-  = render partial: "appointments/appointments", collection: @upcoming_appointments, as: :appointment
+.button__container
+  %button.modal-trigger#appointment__new
+    %label{:for => "appointment"} New Appointment
+  .modal
+    %input#appointment.modal-state{:type => "checkbox"}/
+    .modal-window
+      .modal-inner
+        = render partial: "appointments/form", locals: { user: @user, appointment: @new_appointment }
+.appointment__list--container
+  %h3 Upcoming Appointments
+  - if upcoming_appointments
+    = render partial: "appointments/appointment", collection: @upcoming_appointments, as: :appointment
 
-- if past_appointments
-  %h3 Past Appointments
-  = render partial: "appointments/appointments", collection: @past_appointments, as: :appointment
+  - if past_appointments.length > 0
+    %h3 Past Appointments
+    = render partial: "appointments/appointment", collection: @past_appointments, as: :appointment

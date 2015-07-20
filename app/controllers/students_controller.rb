@@ -3,6 +3,8 @@ class StudentsController < ApplicationController
 
   before_action :find_user
   before_action :check_and_update_token
+  before_action :find_student, only: [:show, :update]
+  before_action :sort_notes, only: [:show]
 
   def new
     @student = Student.new
@@ -19,17 +21,16 @@ class StudentsController < ApplicationController
   end
 
   def show
-    @student = @user.students.find_by_id(params[:id])
     @calendar = Calendar.new(@user.auth_token)
     @new_appointment = Appointment.new
     @appointments = @calendar.appointments_with_attendee(@student.email)
     @upcoming_appointments = @calendar.upcoming_appointment_with_attendee(@appointments)
     @past_appointments = @calendar.past_appointment_with_attendee(@appointments)
+    @new_note = Note.new
+    @notes = @sorted_notes.paginate(page: params[:page], per_page: 10)
   end
 
   def update
-    @student = @user.students.find_by_id(params[:id])
-
     if @student.update_attributes(student_params)
       flash.now[:success] = "Student successfully updated"
     else
@@ -50,6 +51,14 @@ class StudentsController < ApplicationController
 
   def find_user
     @user = current_user
+  end
+
+  def find_student
+    @student = @user.students.find_by_id(params[:id])
+  end
+
+  def sort_notes
+    @sorted_notes = @student.notes.order("date DESC")
   end
 
   def student_params

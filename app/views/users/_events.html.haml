@@ -1,8 +1,8 @@
 %h3 Upcoming Appointments
 - if @upcoming_events
-  = render partial:  "appointments/appointments", collection: @upcoming_events, as: :appointment
+  = render partial:  "appointments/appointment", collection: @upcoming_events, as: :appointment
 - else
   %h3 You have no upcoming appointments scheduled
 - if @past_events
   %h3 Past Appointments
-  = render partial:  "appointments/appointments", collection: @past_events, as: :appointment
+  = render partial:  "appointments/appointment", collection: @past_events, as: :appointment

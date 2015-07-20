@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
     data = access_token.info
     user = User.where(:email => data["email"]).first
     unless user
-        user = User.create(first_name: data["first_name"],
-                           last_name: data["last_name"],
+        user = User.create(first_name: data["first_name"] || data["email"],
+                           last_name: data["last_name"] || data["email"],
                            position: "Advisor",
                            organization: "Organization",
                            email: data["email"],

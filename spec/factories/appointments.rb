@@ -5,5 +5,4 @@ FactoryGirl.define do
     summary { Faker::Lorem.sentence }
     description { Faker::Lorem.sentence }
   end
-
 end

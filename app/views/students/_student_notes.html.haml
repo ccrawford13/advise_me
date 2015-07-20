@@ -1,0 +1,12 @@
+.button__container
+  %button.modal-trigger#note__new
+    %label{:for => "note"} New Note
+  .modal
+    %input#note.modal-state{:type => "checkbox"}/
+    .modal-window
+      .modal-inner
+        = render partial: "notes/form", locals: { student: @student, note: @new_note }
+.note__list--container
+  = render partial: "notes/note", collection: @notes, as: :note
+.note__pagination  
+  = will_paginate @notes
